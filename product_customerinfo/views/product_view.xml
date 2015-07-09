@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- This record insertion places the Customer details into
+             the product Sales page -->
+        <record model="ir.ui.view" id="view_product_customerinfo">
+            <field name="name">product.normal.form.view.clubit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Sales']" position="inside">
+	                <separator string="Customers"/>
+	                <field name="customer_ids" context="{'uom_id': uom_id}"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- The customer info form input view -->
+        <record id="product_customerinfo_form_view" model="ir.ui.view">
+            <field name="name">product.customerinfo.form.view</field>
+            <field name="model">product.customerinfo</field>
+            <field name="arch" type="xml">
+                <form string="Customer Information" version="7.0">
+                    <group col="4">
+                        <field name="name" context="{'default_customer': 1, 'search_default_customer': 1, 'default_supplier': 0}"/>
+                        <field name="product_name"/>
+                        <field name="product_code"/>
+                    </group>
+                    <p groups="product.group_purchase_pricelist" class="oe_grey">The prices below will only be taken into account when your pricelist is set as based on supplier prices.</p>
+                </form>
+            </field>
+        </record>
+
+        
+        <!-- The customer info tree view -->
+        <record id="product_customerinfo_tree_view" model="ir.ui.view">
+            <field name="name">product.customerinfo.tree.view</field>
+            <field name="model">product.customerinfo</field>
+            <field name="arch" type="xml">
+                <tree string="Customer Information">
+                    <field name="name"/>
+                    <field name="product_name"/>
+                    <field name="product_code"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>
